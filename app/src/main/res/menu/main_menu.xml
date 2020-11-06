@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/view_Contacts"
+        android:title="@string/view_all_contact" />
+    <item
+        android:id="@+id/sendMessage"
+        android:title="@string/send_whatsapp_message" />
+</menu>

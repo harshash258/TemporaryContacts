@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:padding="10dp"
+    tools:context=".CreateContact">
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="@string/create_a_temporary_contact_for_a_limited_time"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="26sp"
+        android:textStyle="bold|italic" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/heading"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/edittext"
+        android:hint="@string/enter_the_contact_name"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="20sp" />
+
+    <com.hbb20.CountryCodePicker
+        android:id="@+id/ccp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginEnd="10dp"
+        ads:ccp_autoFormatNumber="true"
+        ads:ccp_contentColor="@android:color/white" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginBottom="40dp"
+        android:layout_toEndOf="@+id/ccp"
+        android:background="@drawable/edittext"
+        android:hint="@string/enter_the_phone_number"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:padding="10dp"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/minutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phoneNumber"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="@string/select_time"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="22sp"
+        android:textStyle="bold|italic" />
+
+    <Spinner
+        android:id="@+id/time"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/phoneNumber"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/holo_blue_bright"
+        android:prompt="@string/minutes"
+        android:spinnerMode="dialog"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/permanent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adView"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/button"
+        android:padding="10dp"
+        android:text="@string/permanent_contacts"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+    <Button
+        android:id="@+id/create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adView"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/button"
+        android:padding="10dp"
+        android:text="@string/create_temporary_contact"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id" />
+
+</RelativeLayout>
