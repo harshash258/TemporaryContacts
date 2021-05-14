@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.model;
 
 public class Contacts {
     String name, number;

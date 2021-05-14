@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.activity;
 
 import android.Manifest;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,19 +24,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mycompany.createtemporarycontact.R;
+import com.mycompany.createtemporarycontact.adapter.ContactsAdapter;
+import com.mycompany.createtemporarycontact.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DisplayContactList extends AppCompatActivity {
+public class DisplayContactListActivity extends AppCompatActivity {
 
-    public static final String TAG = "";
     RecyclerView recyclerView;
     List<Contacts> contactsList;
     ContactsAdapter adapter;
     FloatingActionButton button;
-    TextView textView;
 
+    TextView noPermission, textView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,7 @@ public class DisplayContactList extends AppCompatActivity {
         mAdView.loadAd(adRequest);
 
         button = findViewById(R.id.floating_action_button);
+        noPermission = findViewById(R.id.noPermission);
         textView = findViewById(R.id.text);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
@@ -65,6 +69,7 @@ public class DisplayContactList extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},
                     1);
         } else {
+            noPermission.setVisibility(View.GONE);
             String[] PROJECTION = new String[]{
                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
                     ContactsContract.Contacts.DISPLAY_NAME_PRIMARY, // Honeycomb+ should use this
@@ -74,6 +79,10 @@ public class DisplayContactList extends AppCompatActivity {
                     PROJECTION, null, null,
                     "UPPER(" + ContactsContract.Contacts.DISPLAY_NAME + ") ASC");
             contactsList.clear();
+
+            if (!cursor.moveToNext())
+                textView.setVisibility(View.VISIBLE);
+
             while (cursor.moveToNext()) {
                 String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
                 String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -81,13 +90,13 @@ public class DisplayContactList extends AppCompatActivity {
                 Contacts contacts = new Contacts(name, number);
                 contactsList.add(contacts);
 
+                Log.d("Size", String.valueOf(contactsList.size()));
                 adapter = new ContactsAdapter(contactsList, getApplicationContext());
                 recyclerView.setAdapter(adapter);
 
+
                 adapter.notifyDataSetChanged();
-                if (contactsList.size() <= 0){
-                    textView.setVisibility(View.VISIBLE);
-                }
+
             }
             cursor.close();
         }
@@ -95,7 +104,7 @@ public class DisplayContactList extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(DisplayContactList.this, CreateContact.class));
+        startActivity(new Intent(DisplayContactListActivity.this, CreateContactActivity.class));
     }
 
     @Override

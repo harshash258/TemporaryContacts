@@ -1,9 +1,11 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.mycompany.createtemporarycontact.R;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class SplashScreen extends AppCompatActivity {
                     }
                 } catch (Exception e) {
                 } finally {
-                    Intent intent = new Intent(SplashScreen.this, CreateContact.class);
+                    Intent intent = new Intent(SplashScreen.this, CreateContactActivity.class);
                     startActivity(intent);
                 }
             }

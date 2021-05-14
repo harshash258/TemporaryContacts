@@ -3,7 +3,6 @@
     package="com.mycompany.createtemporarycontact">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -18,14 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditContact"></activity>
-        <activity android:name=".WhatsAppMessage" />
+        <activity android:name=".activity.SuggestFeatureActivity"></activity>
+        <activity android:name=".activity.EditContactActivity" />
+        <activity android:name=".activity.WhatsAppMessageActivity" />
         <activity
-            android:name=".DisplayContactList"
-            android:parentActivityName=".CreateContact" />
-        <activity android:name=".CreateContact" />
+            android:name=".activity.DisplayContactListActivity"
+            android:parentActivityName=".activity.CreateContactActivity" />
+        <activity android:name=".activity.CreateContactActivity" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".activity.SplashScreen"
             android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -37,13 +37,13 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3914175453073115~4452351959" />
+            android:value="ca-app-pub-3940256099942544~3347511713" /> <!-- android:value="ca-app-pub-3914175453073115~4452351959" /> -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
         <receiver
-            android:name=".DeleteContactReceiver"
+            android:name=".receiver.DeleteContactReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

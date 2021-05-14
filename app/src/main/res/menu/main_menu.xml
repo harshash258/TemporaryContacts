@@ -7,4 +7,10 @@
     <item
         android:id="@+id/sendMessage"
         android:title="@string/send_whatsapp_message" />
+    <item
+        android:id="@+id/suggest"
+        android:title="Suggest a Feature" />
+
+    <item android:id="@+id/support"
+        android:title="Support us..."/>
 </menu>

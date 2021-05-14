@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.activity;
 
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
@@ -17,10 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.hbb20.CountryCodePicker;
+import com.mycompany.createtemporarycontact.R;
 
 import java.util.ArrayList;
 
-public class EditContact extends AppCompatActivity {
+public class EditContactActivity extends AppCompatActivity {
 
     private final static String[] DATA_COLS = {
 
@@ -144,7 +145,7 @@ public class EditContact extends AppCompatActivity {
             Log.d("TAG", "onCreate: " + names);
             updateNameAndNumber(this, oldNumber, names, ccp.getFormattedFullNumber());
             Toast.makeText(this, "Contact Updated", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(this, DisplayContactList.class);
+            Intent intent1 = new Intent(this, DisplayContactListActivity.class);
             startActivity(intent1);
         });
     }

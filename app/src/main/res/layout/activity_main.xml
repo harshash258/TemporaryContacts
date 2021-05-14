@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SplashScreen"
-    android:background="@android:color/black">
+    android:background="@android:color/black"
+    tools:context=".activity.SplashScreen">
 
-   <ImageView
-       android:id="@+id/image"
-       android:layout_width="match_parent"
-       android:layout_height="300dp"
-       android:src="@drawable/temp"
-       android:layout_centerVertical="true"/>
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/temp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:fontFamily="@font/alegreya_sc_bold_italic"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="casual"
         android:gravity="center"
         android:text="ConTemp - Create Temporary Contacts"
         android:textColor="#517deb"
-        android:textSize="40sp" />
+        android:textSize="40sp"
+        android:textStyle="italic" />
 </RelativeLayout>

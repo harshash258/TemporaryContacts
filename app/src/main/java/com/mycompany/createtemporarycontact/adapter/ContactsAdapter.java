@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,6 +18,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.mycompany.createtemporarycontact.R;
+import com.mycompany.createtemporarycontact.activity.DisplayContactListActivity;
+import com.mycompany.createtemporarycontact.activity.EditContactActivity;
+import com.mycompany.createtemporarycontact.model.Contacts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,12 +86,12 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             Log.d(TAG, names + " ------ " + phone);
             AlertDialog.Builder builder = new AlertDialog.Builder(v.getRootView().getContext());
             builder.setIcon(R.drawable.ic_baseline_delete_24);
-            builder.setTitle("Delete Contact");
+            builder.setTitle("Delete Contact!!!");
             builder.setMessage("Are you sure you want to delete this Contact?");
             builder.setPositiveButton("Yes", (dialog, which) -> {
                 deleteContact(context, contacts.getNumber(), contacts.getName());
                 dialog.dismiss();
-                Intent intent = new Intent(context, DisplayContactList.class);
+                Intent intent = new Intent(context, DisplayContactListActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
 
@@ -96,7 +101,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
             dialog.show();
         });
         holder.edit.setOnClickListener(v -> {
-            Intent intent = new Intent(context, EditContact.class);
+            Intent intent = new Intent(context, EditContactActivity.class);
             intent.putExtra("name", contacts.getName());
             intent.putExtra("phone", contacts.getNumber());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -106,7 +111,8 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.ViewHo
 
     private void deleteContact(Context ctx, String phone, String name) {
         Uri contactUri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(phone));
-        try (Cursor cur = ctx.getContentResolver().query(contactUri, null, null, null, null)) {
+        try (Cursor cur = ctx.getContentResolver().query(contactUri,
+                null, null, null, null)) {
             if (cur.moveToFirst()) {
                 do {
                     if (cur.getString(cur.getColumnIndex(ContactsContract.PhoneLookup.DISPLAY_NAME)).equalsIgnoreCase(name)) {

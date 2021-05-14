@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.receiver;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,6 +12,8 @@ import android.provider.ContactsContract;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+
+import com.mycompany.createtemporarycontact.R;
 
 import java.util.Arrays;
 
@@ -53,7 +55,7 @@ public class DeleteContactReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             String name = "delete";
-            String description = "Contact Delete Notification";
+            String description = "Inform about contact that has been deleted.";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(name, name, importance);
             channel.setDescription(description);

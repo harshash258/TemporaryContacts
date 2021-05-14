@@ -17,5 +17,6 @@
     <string name="send_whatsapp_message_without_saving_phone_number">Send WhatsApp Message without saving phone number</string>
     <string name="add_a_contact">Add a Contact</string>
     <string name="phone_number">Phone Number</string>
+    <string name="edit_your_contact"><u>Edit Your Contact</u></string>
 
 </resources>

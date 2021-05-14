@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    app:cardCornerRadius="10dp">
+    app:cardBackgroundColor="#313131"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="12dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#313131"
         android:clipToPadding="false"
         android:padding="10dp">
 
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/profilePic"
             android:text="@string/contact_name"
-            android:textColor="@android:color/holo_blue_bright"
+            android:textColor="#acdbdf"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -39,6 +39,7 @@
             android:layout_below="@+id/contactName"
             android:layout_toEndOf="@+id/profilePic"
             android:text="@string/_91_987654321"
+            android:fontFamily="sans-serif"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
 

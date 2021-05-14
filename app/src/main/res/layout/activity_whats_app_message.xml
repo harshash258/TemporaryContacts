@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#313131"
     android:padding="10dp"
-    tools:context=".WhatsAppMessage">
+    tools:context=".activity.WhatsAppMessageActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/send_whatsapp_message_without_saving_phone_number"
-        android:textColor="@android:color/holo_blue_bright"
+        android:textColor="#acdbdf"
         android:textSize="22sp"
         android:textStyle="italic" />
 

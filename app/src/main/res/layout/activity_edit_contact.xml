@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#313131"
     android:padding="10dp"
-    tools:context=".EditContact">
+    tools:context=".activity.EditContactActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Edit Your Contact"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textSize="24sp"
+        android:text="@string/edit_your_contact"
+        android:textColor="#acdbdf"
+        android:textSize="28sp"
         android:textStyle="italic|bold" />
 
     <EditText

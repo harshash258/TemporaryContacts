@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,9 @@ import android.widget.EditText;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.hbb20.CountryCodePicker;
+import com.mycompany.createtemporarycontact.R;
 
-public class WhatsAppMessage extends AppCompatActivity {
+public class WhatsAppMessageActivity extends AppCompatActivity {
 
     EditText number;
     Button send;

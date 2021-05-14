@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/black"
     android:padding="10dp"
-    tools:context=".DisplayContactList">
+    tools:context=".activity.DisplayContactListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -16,6 +16,27 @@
         android:layout_above="@+id/adView"
         android:layout_marginBottom="10dp" />
 
+    <TextView
+        android:id="@+id/noPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="Please Grant Contact Permission to view your Contacts"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="No Contacts Found..."
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button"
         android:layout_width="wrap_content"
@@ -23,6 +44,7 @@
         android:layout_above="@+id/adView"
         android:layout_alignParentEnd="true"
         android:layout_margin="30dp"
+        android:backgroundTint="#69779b"
         android:contentDescription="@string/add_a_contact"
         app:srcCompat="@drawable/ic_baseline_person_add_alt_1_24" />
 
@@ -33,6 +55,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+    <!--        ads:adUnitId="@string/banner_ad_unit_id" />-->
 
 </RelativeLayout>

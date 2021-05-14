@@ -1,4 +1,4 @@
-package com.mycompany.createtemporarycontact;
+package com.mycompany.createtemporarycontact.activity;
 
 import android.Manifest;
 import android.app.AlarmManager;
@@ -27,10 +27,12 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.hbb20.CountryCodePicker;
+import com.mycompany.createtemporarycontact.R;
+import com.mycompany.createtemporarycontact.receiver.DeleteContactReceiver;
 
 import java.util.ArrayList;
 
-public class CreateContact extends AppCompatActivity {
+public class CreateContactActivity extends AppCompatActivity {
 
     EditText name, phoneNumber;
     Spinner time;
@@ -85,7 +87,7 @@ public class CreateContact extends AppCompatActivity {
                     checkData(ops, displayName, fullNumber);
                     try {
                         getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
-                        Intent intent = new Intent(CreateContact.this, DeleteContactReceiver.class);
+                        Intent intent = new Intent(CreateContactActivity.this, DeleteContactReceiver.class);
                         intent.putExtra("name", name.getText().toString());
                         intent.putExtra("phone", ccp.getFullNumberWithPlus());
                         PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -102,7 +104,7 @@ public class CreateContact extends AppCompatActivity {
 
                         long time = selected * 60000;
                         int minutes = (int) (time / 1000) / 60;
-                        Toast.makeText(CreateContact.this, "Contact will be deleted in "
+                        Toast.makeText(CreateContactActivity.this, "Contact will be deleted in "
                                 + minutes + " Minutes", Toast.LENGTH_SHORT).show();
 
                         name.setText("");
@@ -112,10 +114,10 @@ public class CreateContact extends AppCompatActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(CreateContact.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateContactActivity.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(CreateContact.this, "Name or Phone Number Missing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateContactActivity.this, "Name or Phone Number Missing", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -135,7 +137,7 @@ public class CreateContact extends AppCompatActivity {
                     checkData(ops, displayName, "+91" + fullNumber);
                     try {
                         getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
-                        Toast.makeText(CreateContact.this, "Contact Created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateContactActivity.this, "Contact Created", Toast.LENGTH_SHORT).show();
                         name.setText("");
                         phoneNumber.setText("");
                         if (mInterstitialAd != null)
@@ -143,10 +145,10 @@ public class CreateContact extends AppCompatActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        Toast.makeText(CreateContact.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateContactActivity.this, "Exception: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(CreateContact.this, "Name or Phone Number Missing", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateContactActivity.this, "Name or Phone Number Missing", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -283,10 +285,16 @@ public class CreateContact extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.view_Contacts) {
-            Intent intent = new Intent(CreateContact.this, DisplayContactList.class);
+            Intent intent = new Intent(CreateContactActivity.this, DisplayContactListActivity.class);
             startActivity(intent);
         } else if (id == R.id.sendMessage) {
-            Intent intent = new Intent(CreateContact.this, WhatsAppMessage.class);
+            Intent intent = new Intent(CreateContactActivity.this, WhatsAppMessageActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.suggest) {
+            Intent intent = new Intent(CreateContactActivity.this, SuggestFeatureActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.support) {
+            Intent intent = new Intent(CreateContactActivity.this, SuggestFeatureActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
