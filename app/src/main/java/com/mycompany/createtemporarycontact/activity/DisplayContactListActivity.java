@@ -1,18 +1,22 @@
 package com.mycompany.createtemporarycontact;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +34,7 @@ public class DisplayContactList extends AppCompatActivity {
     List<Contacts> contactsList;
     ContactsAdapter adapter;
     FloatingActionButton button;
+    TextView textView;
 
 
     @Override
@@ -37,13 +42,14 @@ public class DisplayContactList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_contact_list);
 
-        setTitle("Manage Contacts");
+        setTitle("ConTemp - Manage Contacts");
 
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         button = findViewById(R.id.floating_action_button);
+        textView = findViewById(R.id.text);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -54,35 +60,41 @@ public class DisplayContactList extends AppCompatActivity {
     }
 
     public void getContactList() {
-        String[] PROJECTION = new String[]{
-                ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
-                ContactsContract.Contacts.DISPLAY_NAME_PRIMARY, // Honeycomb+ should use this
-                ContactsContract.CommonDataKinds.Phone.NUMBER
-        };
-        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                PROJECTION, null, null,
-                "UPPER(" + ContactsContract.Contacts.DISPLAY_NAME + ") ASC");
-        contactsList.clear();
-        while (cursor.moveToNext()) {
-            String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-            String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                == PackageManager.PERMISSION_DENIED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},
+                    1);
+        } else {
+            String[] PROJECTION = new String[]{
+                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
+                    ContactsContract.Contacts.DISPLAY_NAME_PRIMARY, // Honeycomb+ should use this
+                    ContactsContract.CommonDataKinds.Phone.NUMBER
+            };
+            Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    PROJECTION, null, null,
+                    "UPPER(" + ContactsContract.Contacts.DISPLAY_NAME + ") ASC");
+            contactsList.clear();
+            while (cursor.moveToNext()) {
+                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                String number = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
 
+                Contacts contacts = new Contacts(name, number);
+                contactsList.add(contacts);
 
-            Contacts contacts = new Contacts(name, number);
-            contactsList.add(contacts);
+                adapter = new ContactsAdapter(contactsList, getApplicationContext());
+                recyclerView.setAdapter(adapter);
 
-
-            adapter = new ContactsAdapter(contactsList, getApplicationContext());
-            recyclerView.setAdapter(adapter);
-
-            adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
+                if (contactsList.size() <= 0){
+                    textView.setVisibility(View.VISIBLE);
+                }
+            }
+            cursor.close();
         }
-        cursor.close();
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         startActivity(new Intent(DisplayContactList.this, CreateContact.class));
     }
 
@@ -111,9 +123,17 @@ public class DisplayContactList extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.refresh) {
-            contactsList.clear();
-            getContactList();
-            Toast.makeText(this, "Contact List Updated", Toast.LENGTH_SHORT).show();
+            View view = findViewById(R.id.refresh);
+            view.animate().rotation(1080).start();
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_CONTACTS)
+                    == PackageManager.PERMISSION_DENIED) {
+                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS},
+                        1);
+            } else {
+                contactsList.clear();
+                getContactList();
+                Toast.makeText(this, "Contact List Updated", Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
