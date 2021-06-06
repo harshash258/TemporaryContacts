@@ -79,8 +79,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Intel\Desktop\Photoshop\temp.jpg" />
-                                                <entry key="scalingPercent" value="71" />
+                                                <entry key="imagePath" value="E:\Photoshop\ConTemp\newLogo.png" />
+                                                <entry key="scalingPercent" value="78" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -108,6 +108,12 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="3da9db" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -313,8 +319,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_menu" />
-                            <entry key="sourceFile" value="C:\Users\Intel\Downloads\menu.svg" />
+                            <entry key="outputName" value="ic_phone" />
+                            <entry key="sourceFile" value="C:\Users\Intel\Downloads\phone-call.svg" />
                           </map>
                         </option>
                       </PersistentState>

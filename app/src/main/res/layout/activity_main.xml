@@ -3,25 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
-    tools:context=".activity.SplashScreen">
+    tools:context=".activity.SplashScreen"
+    android:background="@drawable/gradient">
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/temp" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="casual"
-        android:gravity="center"
-        android:text="ConTemp - Create Temporary Contacts"
-        android:textColor="#517deb"
-        android:textSize="40sp"
-        android:textStyle="italic" />
+        android:orientation="vertical"
+
+        android:layout_centerVertical="true">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_210sdp"
+            android:src="@drawable/temp"
+            android:layout_marginBottom="@dimen/_30sdp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/contemp_n_create_temporary_contacts"
+            android:textColor="#3ccfe0"
+            android:textSize="@dimen/_24sdp"
+            android:textStyle="italic|bold" />
+    </LinearLayout>
 </RelativeLayout>

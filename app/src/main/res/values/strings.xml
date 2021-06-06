@@ -18,5 +18,7 @@
     <string name="add_a_contact">Add a Contact</string>
     <string name="phone_number">Phone Number</string>
     <string name="edit_your_contact"><u>Edit Your Contact</u></string>
+    <string name="grant_permission">Please grant permission to choose from call logs.<font fgcolor='#acdbdf'> Click here.</font></string>
+    <string name="contemp_n_create_temporary_contacts">ConTemp\n Create Temporary Contacts</string>
 
 </resources>

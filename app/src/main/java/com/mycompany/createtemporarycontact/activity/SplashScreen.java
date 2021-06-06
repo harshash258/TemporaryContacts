@@ -27,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
                             ms = ms + 100;
                         sleep(100);
                     }
-                } catch (Exception e) {
+                } catch (Exception ignored) {
                 } finally {
                     Intent intent = new Intent(SplashScreen.this, CreateContactActivity.class);
                     startActivity(intent);

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -26,6 +27,8 @@ import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.hbb20.CountryCodePicker;
 import com.mycompany.createtemporarycontact.R;
 import com.mycompany.createtemporarycontact.receiver.DeleteContactReceiver;
@@ -40,6 +43,7 @@ public class CreateContactActivity extends AppCompatActivity {
     InterstitialAd mInterstitialAd;
     String displayName, displayPhone, fullNumber;
     CountryCodePicker ccp;
+    RewardedAd mRewardedAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +77,19 @@ public class CreateContactActivity extends AppCompatActivity {
                         1);
             } else {
                 int selected;
-                if (time.getSelectedItem().equals("1 Day"))
+                String msg = "Contact will be deleted in ";
+                if (time.getSelectedItem().equals("1 Day")) {
                     selected = 1440;
-                else if (time.getSelectedItem().equals("1 Week"))
+                    msg += "1 Day.";
+                } else if (time.getSelectedItem().equals("1 Week")) {
                     selected = 10080;
-                else
+                    msg += "1 Week.";
+                } else {
                     selected = Integer.parseInt(time.getSelectedItem().toString());
+                    long time = selected * 60000;
+                    int minutes = (int) (time / 1000) / 60;
+                    msg += minutes + " Minutes.";
+                }
                 displayPhone = phoneNumber.getText().toString();
                 displayName = name.getText().toString();
                 fullNumber = ccp.getFormattedFullNumber();
@@ -94,23 +105,16 @@ public class CreateContactActivity extends AppCompatActivity {
                                 getApplicationContext(), (int) System.currentTimeMillis(), intent, 0);
                         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
-                   /* if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                                + (selected * 60000), pendingIntent);*/
+                        alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,
+                                System.currentTimeMillis() + (selected * 60000),
+                                pendingIntent);
 
-                        alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
-                                + (selected * 60000), pendingIntent);
-
-
-                        long time = selected * 60000;
-                        int minutes = (int) (time / 1000) / 60;
-                        Toast.makeText(CreateContactActivity.this, "Contact will be deleted in "
-                                + minutes + " Minutes", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(CreateContactActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                         name.setText("");
                         phoneNumber.setText("");
                         if (mInterstitialAd != null)
-                            showInterstitialAd();
+                            showInterstitialAd(false);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -141,7 +145,7 @@ public class CreateContactActivity extends AppCompatActivity {
                         name.setText("");
                         phoneNumber.setText("");
                         if (mInterstitialAd != null)
-                            showInterstitialAd();
+                            showInterstitialAd(false);
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -153,33 +157,6 @@ public class CreateContactActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    private void loadAd() {
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/1033173712", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        mInterstitialAd = interstitialAd;
-
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        mInterstitialAd = null;
-                    }
-
-                });
-       /* mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.interstitialAd));
-        mInterstitialAd.loadAd(adRequest);*/
-
-    }
-
 
     private void fillSpinner() {
         ArrayList<String> timeSpinner = new ArrayList<>();
@@ -222,21 +199,76 @@ public class CreateContactActivity extends AppCompatActivity {
         }
     }
 
+    private void loadAd() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
-    private void showInterstitialAd() {
+        InterstitialAd.load(this, "ca-app-pub-3914175453073115/1949477542", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+
+                });
+        RewardedAd.load(this, "ca-app-pub-3914175453073115/9493760106",
+                adRequest, new RewardedAdLoadCallback() {
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mRewardedAd = null;
+                    }
+
+                    @Override
+                    public void onAdLoaded(@NonNull RewardedAd rewardedAd) {
+                        mRewardedAd = rewardedAd;
+                    }
+                });
+
+    }
+
+    private void showVideoAd() {
+        mRewardedAd.show(this, rewardItem -> {
+            Toast.makeText(CreateContactActivity.this, "Thank you!!!, for your support. Love you 3000.",
+                    Toast.LENGTH_LONG).show();
+        });
+        mRewardedAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+            @Override
+            public void onAdShowedFullScreenContent() {
+                mRewardedAd = null;
+            }
+
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                loadAd();
+            }
+        });
+    }
+
+    private void showInterstitialAd(boolean yes) {
         mInterstitialAd.show(this);
         mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
             @Override
             public void onAdDismissedFullScreenContent() {
-                Intent a = new Intent(Intent.ACTION_MAIN);
-                a.addCategory(Intent.CATEGORY_HOME);
-                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(a);
+                if (yes) {
+                    Intent a = new Intent(Intent.ACTION_MAIN);
+                    a.addCategory(Intent.CATEGORY_HOME);
+                    a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(a);
+                } else {
+                    recreate();
+                }
             }
 
             @Override
             public void onAdShowedFullScreenContent() {
-                mInterstitialAd = null;
+                loadAd();
             }
         });
 
@@ -244,35 +276,14 @@ public class CreateContactActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
         if (mInterstitialAd != null) {
-            showInterstitialAd();
+            showInterstitialAd(true);
         } else {
             Intent a = new Intent(Intent.ACTION_MAIN);
             a.addCategory(Intent.CATEGORY_HOME);
             a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(a);
         }
-/*        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-
-            mInterstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    Intent a = new Intent(Intent.ACTION_MAIN);
-                    a.addCategory(Intent.CATEGORY_HOME);
-                    a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(a);
-                }
-            });
-
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
-            Intent a = new Intent(Intent.ACTION_MAIN);
-            a.addCategory(Intent.CATEGORY_HOME);
-            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(a);
-        }*/
     }
 
     @Override
@@ -294,8 +305,11 @@ public class CreateContactActivity extends AppCompatActivity {
             Intent intent = new Intent(CreateContactActivity.this, SuggestFeatureActivity.class);
             startActivity(intent);
         } else if (id == R.id.support) {
-            Intent intent = new Intent(CreateContactActivity.this, SuggestFeatureActivity.class);
-            startActivity(intent);
+            if (mRewardedAd != null) {
+                showVideoAd();
+            } else {
+                Log.d("TAG", "The rewarded ad wasn't ready yet.");
+            }
         }
         return super.onOptionsItemSelected(item);
     }

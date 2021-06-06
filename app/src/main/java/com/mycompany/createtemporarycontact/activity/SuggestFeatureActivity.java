@@ -2,6 +2,7 @@ package com.mycompany.createtemporarycontact.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,6 +18,7 @@ public class SuggestFeatureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_feature);
 
+        setTitle("ConTemp - Suggest Feature");
         WebView webView = findViewById(R.id.webView);
         webView.loadUrl("https://docs.google.com/forms/d/e/1FAIpQLSdL4z4TgaFYFezQW7uck4azNnC2J-0KRcLBbchR1cW7SoBtBQ/viewform?usp=sf_link");
 

@@ -5,17 +5,24 @@ import android.content.ContentProviderResult;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.material.snackbar.Snackbar;
 import com.hbb20.CountryCodePicker;
 import com.mycompany.createtemporarycontact.R;
 
@@ -32,6 +39,7 @@ public class EditContactActivity extends AppCompatActivity {
     EditText name, phone;
     Button submit;
     CountryCodePicker ccp;
+    InterstitialAd mInterstitialAd;
 
     public static void updateNameAndNumber(final Context context, String number, String newName, String newNumber) {
 
@@ -122,19 +130,14 @@ public class EditContactActivity extends AppCompatActivity {
         submit = findViewById(R.id.updateContact);
         ccp = findViewById(R.id.ccp);
 
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
         ccp.registerCarrierNumberEditText(phone);
+        loadAd();
 
         Intent intent = getIntent();
         String oldNumber = intent.getStringExtra("phone");
         String oldName = intent.getStringExtra("name");
 
-        Log.d("Name: ", oldName + "------" + oldNumber);
-
-        setTitle(oldName +  " - Edit Contact");
+        setTitle(oldName + " - Edit Contact");
 
         name.setText(oldName);
         phone.setText(oldNumber);
@@ -142,11 +145,60 @@ public class EditContactActivity extends AppCompatActivity {
         submit.setOnClickListener(v -> {
             String names = " ";
             names = name.getText().toString();
-            Log.d("TAG", "onCreate: " + names);
             updateNameAndNumber(this, oldNumber, names, ccp.getFormattedFullNumber());
-            Toast.makeText(this, "Contact Updated", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(this, DisplayContactListActivity.class);
-            startActivity(intent1);
+            showSnakBar();
+            if (mInterstitialAd != null)
+                showInterstitialAd();
+
         });
+    }
+
+    private void loadAd() {
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        InterstitialAd.load(this, "ca-app-pub-3914175453073115/1949477542", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+
+                });
+    }
+
+    private void showSnakBar() {
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar snackbar = Snackbar.make(parentLayout, "Contact Updated", Snackbar.LENGTH_LONG);
+
+        snackbar.setAction("OK", view -> {
+            snackbar.dismiss();
+        });
+        snackbar.setTextColor(Color.parseColor("#ffffff"));
+        snackbar.setActionTextColor(Color.parseColor("#ffffff"));
+        snackbar.show();
+    }
+
+    private void showInterstitialAd() {
+        mInterstitialAd.show(this);
+        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                Intent intent1 = new Intent(EditContactActivity.this, DisplayContactListActivity.class);
+                startActivity(intent1);
+            }
+
+            @Override
+            public void onAdShowedFullScreenContent() {
+                loadAd();
+            }
+        });
+
     }
 }
