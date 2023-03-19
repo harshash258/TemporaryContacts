@@ -3,15 +3,15 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 33
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.mycompany.createtemporarycontact"
+        applicationId "com.tdc.ghostlycontact"
         minSdkVersion 23
-        targetSdkVersion 30
-        versionCode 4
-        versionName "3.0"
+        targetSdkVersion 33
+        versionCode 3
+        versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -26,29 +26,35 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.mycompany.createtemporarycontact'
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'com.google.firebase:firebase-ads:20.1.0'
-    implementation 'com.hbb20:ccp:2.4.0'
-    implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation "androidx.navigation:navigation-fragment:2.3.5"
-    implementation "androidx.navigation:navigation-ui:2.3.5"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'com.google.android.gms:play-services-ads:20.1.0'
-    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'com.hbb20:ccp:2.7.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation "androidx.navigation:navigation-fragment:2.5.3"
+    implementation "androidx.navigation:navigation-ui:2.5.3"
+    implementation 'com.google.android.material:material:1.8.0'
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "androidx.room:room-runtime:2.5.0"
+    annotationProcessor "androidx.room:room-compiler:2.5.0"
 
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.3.5"
-    androidTestImplementation "androidx.navigation:navigation-testing:2.3.5"
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:2.5.3"
+    androidTestImplementation "androidx.navigation:navigation-testing:2.5.3"
 
-    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
 
 }

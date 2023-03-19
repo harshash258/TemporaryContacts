@@ -3,7 +3,7 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/alegreya_sc_bold_italic</item>
         <item>@font/allan</item>
-        <item>@font/atma</item>
+        <item>@font/roboto</item>
         <item>@font/work_sans</item>
     </array>
 </resources>

@@ -3,30 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SplashScreen"
-    android:background="@drawable/gradient">
+    android:background="#33BBF4"
+    tools:context="com.tcd.ghostlyContact.activity.SplashScreen">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo" />
 
-        android:layout_centerVertical="true">
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_210sdp"
-            android:src="@drawable/temp"
-            android:layout_marginBottom="@dimen/_30sdp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/contemp_n_create_temporary_contacts"
-            android:textColor="#3ccfe0"
-            android:textSize="@dimen/_24sdp"
-            android:textStyle="italic|bold" />
-    </LinearLayout>
 </RelativeLayout>
