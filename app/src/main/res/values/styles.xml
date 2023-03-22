@@ -7,6 +7,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@android:color/black</item>
         <item name="fontFamily">@font/roboto</item>
+        <item name="android:actionOverflowButtonStyle">@style/MyOverFlow</item>
     </style>
 
 
@@ -18,5 +19,14 @@
         <item name="android:textColor">@android:color/black</item>
         <item name="fontFamily">@font/roboto</item>
     </style>
+
+    <style name="MyOverFlow" parent="@android:style/Widget.Holo.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_hamburger</item>
+    </style>
+
+    <style name="PopupMenuStyle" parent="Theme.AppCompat.Light">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
 
 </resources>

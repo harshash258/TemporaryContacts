@@ -1,164 +1,172 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#33BBF4"
-    android:orientation="vertical"
+    android:fillViewport="true"
+    android:scrollbars="vertical"
     tools:context="com.tcd.ghostlyContact.activity.CreateContactActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#0566BC"
-        android:clipToPadding="false"
-        android:elevation="@dimen/_4sdp"
-        android:textAlignment="center"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="@string/app_name"
-        app:titleTextColor="#ffffff" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/heading"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:gravity="center"
-            android:lineSpacingExtra="@dimen/_5sdp"
-            android:text="@string/create_a_temporary_contact_for_a_limited_time"
-            android:textColor="#FFFFFF"
-            android:textSize="@dimen/_16sdp"
-            android:textStyle="bold|italic" />
-
+            android:layout_height="?attr/actionBarSize"
+            android:background="#0566BC"
+            android:clipToPadding="false"
+            android:elevation="@dimen/_4sdp"
+            android:textAlignment="center"
+            app:popupTheme="@style/PopupMenuStyle"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="@string/app_name"
+            app:titleTextColor="#ffffff" />
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true">
+            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/name"
+            <TextView
+                android:id="@+id/heading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginVertical="@dimen/_20sdp"
-                android:background="@drawable/edittext"
-                android:hint="@string/enter_the_contact_name"
-                android:importantForAutofill="no"
-                android:inputType="textCapSentences"
-                android:padding="10dp"
-                android:textColor="@android:color/black"
-                android:textColorHint="@android:color/black"
-                android:textSize="20sp" />
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:gravity="center"
+                android:lineSpacingExtra="@dimen/_5sdp"
+                android:text="@string/create_a_temporary_contact_for_a_limited_time"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold|italic" />
 
-            <FrameLayout
-                android:id="@+id/number"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/name"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginBottom="@dimen/_30sdp"
-                android:background="@drawable/edittext">
-
-                <com.hbb20.CountryCodePicker
-                    android:id="@+id/ccp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    ads:ccp_autoFormatNumber="true"
-                    ads:ccp_contentColor="@android:color/black" />
+                android:layout_centerVertical="true">
 
                 <EditText
-                    android:id="@+id/phoneNumber"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_110sdp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:hint="@string/enter_the_phone_number"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginVertical="@dimen/_20sdp"
+                    android:background="@drawable/edittext"
+                    android:hint="@string/enter_the_contact_name"
                     android:importantForAutofill="no"
-                    android:inputType="phone"
+                    android:inputType="textCapSentences"
+                    android:padding="10dp"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/black"
-                    android:textSize="16sp" />
-            </FrameLayout>
-
-
-            <LinearLayout
-                android:id="@+id/frame"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_below="@+id/number"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/minutes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:gravity="center"
-                    android:text="@string/select_time"
-                    android:textColor="#FFFFFF"
-                    android:textSize="22sp"
-                    android:textStyle="bold|italic" />
+                    android:textSize="20sp" />
 
                 <FrameLayout
+                    android:id="@+id/number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/name"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
                     android:background="@drawable/edittext">
 
-                    <Spinner
-                        android:id="@+id/time"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:prompt="@string/minutes"
-                        android:spinnerMode="dialog"
-                        android:textAlignment="center" />
+                    <com.hbb20.CountryCodePicker
+                        android:id="@+id/ccp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        ads:ccp_autoFormatNumber="true"
+                        ads:ccp_contentColor="@android:color/black" />
+
+                    <EditText
+                        android:id="@+id/phoneNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_110sdp"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="@string/enter_the_phone_number"
+                        android:importantForAutofill="no"
+                        android:inputType="phone"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@android:color/black"
+                        android:textSize="16sp" />
                 </FrameLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/frame"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:gravity="center_horizontal">
 
-                <Button
-                    android:id="@+id/permanent"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_below="@+id/number"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/minutes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:gravity="center"
+                        android:text="@string/select_time"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold|italic" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/edittext">
+
+                        <Spinner
+                            android:id="@+id/time"
+                            android:layout_width="@dimen/_120sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:prompt="@string/minutes"
+                            android:spinnerMode="dialog"
+                            android:textAlignment="center" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_weight=".5"
-                    android:background="@drawable/button"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/permanent_contacts"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/_14sdp" />
+                    android:layout_below="@+id/frame"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:gravity="center_horizontal">
 
-                <Button
-                    android:id="@+id/create"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_5sdp"
-                    android:layout_weight=".5"
-                    android:background="@drawable/button"
-                    android:padding="@dimen/_10sdp"
-                    android:text="@string/create_temporary_contact"
-                    android:textAllCaps="false"
-                    android:textColor="#FFFFFF"
-                    android:textSize="@dimen/_14sdp" />
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/permanent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_weight=".5"
+                        android:background="@drawable/button"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/permanent_contacts"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <Button
+                        android:id="@+id/create"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_weight=".5"
+                        android:background="@drawable/button"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/create_temporary_contact"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/_14sdp" />
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

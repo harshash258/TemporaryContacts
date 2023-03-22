@@ -7,6 +7,7 @@
     android:orientation="vertical"
     tools:context="com.tcd.ghostlyContact.activity.ViewDeletedContactActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -18,6 +19,53 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:title="All Ghostly Contacts"
         app:titleTextColor="#ffffff" />
+
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_7sdp">
+
+        <TextView
+            android:id="@+id/header_name_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="Name &amp; \nPhone Number"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/header_time_left"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:text="Time Left"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/header_is_deleted"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_11sdp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:background="@android:color/black"
+        android:backgroundTint="@android:color/black" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

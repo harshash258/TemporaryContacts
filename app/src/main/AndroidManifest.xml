@@ -23,7 +23,7 @@
             android:exported="false" />
         <activity
             android:name="com.tcd.ghostlyContact.activity.CreateContactActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name="com.tcd.ghostlyContact.activity.SplashScreen"
             android:exported="true"
