@@ -6,8 +6,31 @@
     android:background="@android:color/white"
     android:orientation="vertical"
     app:cardBackgroundColor="@android:color/white"
-    app:cardCornerRadius="@dimen/_5sdp"
+    app:cardCornerRadius="@dimen/_10sdp"
     app:contentPadding="@dimen/_5sdp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false">
+
+        <ImageView
+            android:id="@+id/close"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:src="@drawable/cross" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/close"
+            android:layout_marginStart="@dimen/_minus5sdp"
+            android:layout_marginEnd="@dimen/_minus5sdp"
+            android:background="@android:color/black" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,10 +41,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:gravity="center"
             android:lineSpacingExtra="@dimen/_5sdp"
-            android:text="Create Ghostly Contact"
+            android:text="Create a Contact"
             android:textColor="#000"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold|italic" />
@@ -34,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="Name: "
                 android:textColor="#000000"
@@ -60,7 +84,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="Phone Number:"
                 android:textColor="#000000"
@@ -89,7 +113,7 @@
                 android:id="@+id/minutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:gravity="center"
                 android:text="@string/select_time"
                 android:textColor="#000000"

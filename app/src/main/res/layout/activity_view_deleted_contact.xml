@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,68 +8,69 @@
     android:orientation="vertical"
     tools:context="com.tcd.ghostlyContact.activity.ViewDeletedContactActivity">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#0566BC"
-        android:clipToPadding="false"
-        android:elevation="@dimen/_4sdp"
-        android:textAlignment="center"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="All Ghostly Contacts"
-        app:titleTextColor="#ffffff" />
-
-
     <LinearLayout
-        android:id="@+id/header_layout"
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="@dimen/_7sdp">
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/header_name_phone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.5"
-            android:text="Name &amp; \nPhone Number"
-            android:textSize="@dimen/_11sdp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/header_time_left"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1.5"
-            android:gravity="center"
-            android:text="Time Left"
-            android:textSize="@dimen/_11sdp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/header_is_deleted"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_11sdp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#2D93EF"
+            android:clipToPadding="false"
+            android:elevation="@dimen/_4sdp"
+            android:textAlignment="center"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:title="All Ghostly Contacts"
+            app:titleTextColor="#ffffff" />
 
     </LinearLayout>
 
-    <View
+    <LinearLayout
+        android:id="@+id/noContacts"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:background="@android:color/black"
-        android:backgroundTint="@android:color/black" />
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:alpha=".5"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="@dimen/_5sdp">
+
+        <ImageView
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:src="@drawable/sad" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:gravity="center"
+            android:lineSpacingExtra="@dimen/_5sdp"
+            android:text="No Ghostly Contacts Found..."
+            android:textColor="#000"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="italic" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/banner_ad_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3914175453073115/5217072230" />
+</RelativeLayout>

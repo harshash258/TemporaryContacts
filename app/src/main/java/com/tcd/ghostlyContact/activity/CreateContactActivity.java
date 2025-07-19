@@ -23,12 +23,18 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.hbb20.CountryCodePicker;
 import com.mycompany.createtemporarycontact.R;
 import com.tcd.ghostlyContact.database.ContactDatabase;
@@ -50,6 +56,9 @@ public class CreateContactActivity extends AppCompatActivity {
     Spinner time;
     Button temporaray, permanent;
     CountryCodePicker ccp;
+    AdView adView;
+    InterstitialAd mInterstitialAd;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +76,26 @@ public class CreateContactActivity extends AppCompatActivity {
         permanent = findViewById(R.id.permanent);
         ccp.registerCarrierNumberEditText(phoneNumber);
 
+        adView = findViewById(R.id.banner_ad_view);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        InterstitialAd.load(this, "ca-app-pub-3914175453073115/7307516125", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        Log.i("CreateContactActivity", "onAdLoaded");
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        Log.d("CreateContactActivity", loadAdError.toString());
+                        mInterstitialAd = null;
+                    }
+                });
+
+
         fillSpinner();
 
         temporaray.setOnClickListener(v -> {
@@ -76,6 +105,11 @@ public class CreateContactActivity extends AppCompatActivity {
                 return;
             }
             createTempContact(name.getText().toString(), ccp.getFullNumberWithPlus());
+            if (mInterstitialAd != null) {
+                mInterstitialAd.show(CreateContactActivity.this);
+            } else {
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+            }
 
         });
 
@@ -94,6 +128,16 @@ public class CreateContactActivity extends AppCompatActivity {
                 Toast.makeText(this, "Permanent Contact Created", Toast.LENGTH_SHORT).show();
                 name.setText("");
                 phoneNumber.setText("");
+            }
+        });
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(a);
             }
         });
     }
@@ -128,7 +172,7 @@ public class CreateContactActivity extends AppCompatActivity {
         }
     }
 
-    private void createTempContact(String displayName, String displayPhoneNumber) {
+    public void createTempContact(String displayName, String displayPhoneNumber) {
         List<String> deniedPermissions = new ArrayList<>();
         for (String permission : PERMISSIONS) {
             if (ContextCompat.checkSelfPermission(this, permission)
@@ -149,17 +193,18 @@ public class CreateContactActivity extends AppCompatActivity {
                 switch (permission) {
                     case Manifest.permission.WRITE_CONTACTS:
                         isContactPermissionDenied = true;
-                        title.append("Contact ");
+                        title.append("Contact Permission Required");
                         message.append("Contact permission to create temporary contact on your device ");
                         break;
                     case Manifest.permission.POST_NOTIFICATIONS:
                         if (isContactPermissionDenied) {
-                            title.append("and Notification Permission Required");
+                            title.setLength(0);
+                            title.append("Contact and Notification Permission Required");
                             message.append("and Notification permission to notify when the contact is deleted");
 
                         } else {
                             title.append("Notification Permission Required");
-                            message.append("Notification permission to notify when the contact is deleted");
+                            message.append("Notification permission to notify when the contact is deleted.");
                         }
                         break;
                     default:
@@ -243,7 +288,7 @@ public class CreateContactActivity extends AppCompatActivity {
                 phoneNumber.setText("");
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("Not able to create:", e.getMessage());
                 Toast.makeText(CreateContactActivity.this, "Something went wrong!!, Please try again.", Toast.LENGTH_SHORT).show();
             }
         }
@@ -288,8 +333,6 @@ public class CreateContactActivity extends AppCompatActivity {
         timeSpinner.add("30 min");
         timeSpinner.add("60 min");
         timeSpinner.add("1 day");
-        timeSpinner.add("1 Week");
-
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, timeSpinner);
@@ -297,13 +340,6 @@ public class CreateContactActivity extends AppCompatActivity {
         time.setAdapter(arrayAdapter);
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

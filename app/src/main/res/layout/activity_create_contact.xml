@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33BBF4"
+    android:background="#FFFFFF"
     android:fillViewport="true"
     android:scrollbars="vertical"
     tools:context="com.tcd.ghostlyContact.activity.CreateContactActivity">
@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#0566BC"
+            android:background="#2D93EF"
             android:clipToPadding="false"
             android:elevation="@dimen/_4sdp"
             android:textAlignment="center"
@@ -37,11 +37,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_50sdp"
                 android:gravity="center"
                 android:lineSpacingExtra="@dimen/_5sdp"
                 android:text="@string/create_a_temporary_contact_for_a_limited_time"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textSize="@dimen/_16sdp"
                 android:textStyle="bold|italic" />
 
@@ -58,6 +58,8 @@
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginVertical="@dimen/_20sdp"
                     android:background="@drawable/edittext"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="@dimen/_5sdp"
                     android:hint="@string/enter_the_contact_name"
                     android:importantForAutofill="no"
                     android:inputType="textCapSentences"
@@ -113,8 +115,8 @@
                         android:layout_marginEnd="20dp"
                         android:gravity="center"
                         android:text="@string/select_time"
-                        android:textColor="#FFFFFF"
-                        android:textSize="22sp"
+                        android:textColor="#000000"
+                        android:textSize="20sp"
                         android:textStyle="bold|italic" />
 
                     <FrameLayout
@@ -132,31 +134,21 @@
                     </FrameLayout>
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/frame"
                     android:layout_marginTop="@dimen/_50sdp"
-                    android:gravity="center_horizontal">
-
-                    <Button
-                        android:id="@+id/permanent"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_weight=".5"
-                        android:background="@drawable/button"
-                        android:padding="@dimen/_10sdp"
-                        android:text="@string/permanent_contacts"
-                        android:textAllCaps="false"
-                        android:textColor="#FFFFFF"
-                        android:textSize="@dimen/_14sdp" />
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
 
                     <Button
                         android:id="@+id/create"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
                         android:layout_weight=".5"
                         android:background="@drawable/button"
                         android:padding="@dimen/_10sdp"
@@ -164,9 +156,35 @@
                         android:textAllCaps="false"
                         android:textColor="#FFFFFF"
                         android:textSize="@dimen/_14sdp" />
+
+                    <Button
+                        android:id="@+id/permanent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:background="@drawable/button"
+                        android:padding="@dimen/_10sdp"
+                        android:text="@string/permanent_contacts"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/_14sdp" />
+
+
                 </LinearLayout>
             </RelativeLayout>
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/banner_ad_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-3914175453073115/5217072230" />
         </RelativeLayout>
+
+
     </LinearLayout>
+
 
 </ScrollView>

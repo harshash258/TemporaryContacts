@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="2dp"
+    android:layout_marginHorizontal="@dimen/_5sdp"
     android:layout_marginBottom="@dimen/_5sdp"
-    app:cardBackgroundColor="@android:color/holo_blue_light"
     app:cardCornerRadius="@dimen/_5sdp"
+    app:cardElevation="@dimen/_5sdp"
     app:contentPadding="@dimen/_7sdp">
 
 
@@ -18,7 +18,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1.5"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -26,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Qwerty"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/_11sdp" />
 
             <TextView
@@ -34,35 +35,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="+919876543210"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textSize="@dimen/_11sdp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/timeLeft"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_weight="1.5"
-            android:gravity="center"
-            android:text="00:00:00"
-            android:textColor="@android:color/white" />
-
-
-        <Button
-            android:id="@+id/createAgain"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/button"
-            android:backgroundTint="#0566BC"
-            android:enabled="false"
-            android:padding="@dimen/_5sdp"
-            android:text="Create again"
-            android:textAllCaps="false"
-            android:textColor="#FFFFFF"
-            android:visibility="invisible" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/timeLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:background="@drawable/text"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_5sdp"
+                android:text="00:00:00"
+                android:textColor="@android:color/white" />
+
+
+            <Button
+                android:id="@+id/createAgain"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="end"
+                android:background="@drawable/button"
+                android:backgroundTint="#0566BC"
+                android:drawableTint="@android:color/white"
+                android:enabled="false"
+                android:paddingVertical="@dimen/_5sdp"
+                android:text="⟳ Create again"
+                android:textAllCaps="false"
+                android:textColor="#FFFFFF"
+                android:visibility="invisible" />
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
